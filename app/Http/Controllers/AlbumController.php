@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Album;
+use App\Models\File;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
+
+class AlbumController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        /*  $albums = Album::all(); */
+
+        $search = $request->input('search');
+        //ricerca solo del titolo
+        $albums = Album::where('user_id', Auth::id())->where('name_album', 'like', "%$search%")->get();
+        
+        return view('admin.albums.index', compact('albums'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $album = new Album();
+        $album->name_album = $request->name_album;
+        $album->user_id = Auth::id();
+        $album->save();
+
+        return back();
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Album $album)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Album $album)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Album $album)
+    {
+        $album->update($request->all());
+
+        return back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Album $album)
+    {
+        $album->delete();
+
+        return back();
+    }
+}
