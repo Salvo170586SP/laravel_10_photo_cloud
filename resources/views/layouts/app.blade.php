@@ -12,21 +12,8 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- Scripts -->
-        <style>
-            @keyframes rotate-fade {
-            0% {
-                opacity: 0;
-              }
-            60% {
-                opacity: 0;
-                translate: 0.1s linear;
-             }
-            100% {
-                opacity: 1;
-                translate: 0.1s linear;
-             }
-        }
-        </style>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
@@ -47,5 +34,8 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
+
     </body>
 </html>
