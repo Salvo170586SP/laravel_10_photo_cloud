@@ -15,7 +15,7 @@
             <div class="py-3 flex items-center">
                 <form action="{{ route('admin.albums.index') }}" method="get" class="flex items-center">
                     @csrf
-                    <input style="--tw-ring-shadow: none" placeholder="cerca per nome" type="text" name="search" class="hover:bg-gray-200 focus:bg-gray-200 transition border-gray-200 focus:border-gray-200 rounded-lg">
+                    <input style="--tw-ring-shadow: none" autocomplete="off" placeholder="cerca per nome" type="text" name="search" class="hover:bg-gray-200 focus:bg-gray-200 transition border-gray-200 focus:border-gray-200 rounded-lg">
                     <button class="bg-gray-400 hover:bg-gray-500 transition py-2 px-2 mx-1 text-white rounded-lg">Cerca</button>
                     <a class="bg-blue-400 hover:bg-blue-500 transition py-2 px-2 text-white rounded-lg" href="{{ route('admin.albums.index') }}">Reset</a>
     
