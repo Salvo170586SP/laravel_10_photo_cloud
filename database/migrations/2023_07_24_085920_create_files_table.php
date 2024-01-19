@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('album_id')->constrained();
+            $table->foreignId('album_id')->constrained()->onDelete('cascade');
             $table->string('img_url');
             $table->timestamps();
         });

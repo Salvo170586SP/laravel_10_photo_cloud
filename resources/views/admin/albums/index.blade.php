@@ -1,26 +1,28 @@
 <x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
-            <h2 class="font-semibold text-3xl text-gray-800">I Tuoi Albums</h2>
+    <div class="py-3">
+        <div class="max-w-7xl mx-auto    px-5 lg:px-8 flex flex-col">
             {{-- create --}}
-            <form action="{{ route('admin.albums.store') }}" method="post" class=" mb-4 ">
+            <form action="{{ route('admin.albums.store') }}" method="post" class=" mb-20 ">
                 @csrf
                 <input style="--tw-ring-shadow: none" required placeholder="nome album" type="text" name="name_album" class="hover:bg-gray-200 focus:bg-gray-200 transition border-gray-200 focus:border-gray-200 rounded-lg">
                 <button class="bg-gray-400 hover:bg-gray-500 transition p-2 px-5 text-white rounded-lg mt-5">Crea Album</button>
             </form>
-
+            <div class="h-[50px]">
+                @include('admin.partials.messages')
+            </div>
+            <h2 class="font-semibold text-3xl my-3 text-gray-800">I Tuoi Albums</h2>
+            {{-- search --}}
+            <div class="py-3 flex items-center">
+                <form action="{{ route('admin.albums.index') }}" method="get" class="flex items-center">
+                    @csrf
+                    <input style="--tw-ring-shadow: none" placeholder="cerca per nome" type="text" name="search" class="hover:bg-gray-200 focus:bg-gray-200 transition border-gray-200 focus:border-gray-200 rounded-lg">
+                    <button class="bg-gray-400 hover:bg-gray-500 transition py-2 px-2 mx-1 text-white rounded-lg">Cerca</button>
+                    <a class="bg-blue-400 hover:bg-blue-500 transition py-2 px-2 text-white rounded-lg" href="{{ route('admin.albums.index') }}">Reset</a>
+    
+                </form>
+            </div>
             <!-- Table -->
-            <div class="w-full hidden md:block    max-w-1xl bg-white shadow-md rounded-lg">
-                <header class="px-4 py-3   flex justify-end items-center">
-                    {{-- search --}}
-                    <form action="{{ route('admin.albums.index') }}" method="get" class="flex items-center">
-                        @csrf
-                        <input style="--tw-ring-shadow: none" placeholder="cerca per nome" type="text" name="search" class="hover:bg-gray-200 focus:bg-gray-200 transition border-gray-200 focus:border-gray-200 rounded-lg">
-                        <button class="bg-gray-400 hover:bg-gray-500 transition py-2 px-2 mx-1 text-white rounded-lg">Cerca</button>
-                        <a class="bg-blue-400 hover:bg-blue-500 transition py-2 px-2 text-white rounded-lg" href="{{ route('admin.albums.index') }}">Reset</a>
-        
-                    </form>
-                </header>
+            <div class="w-full hidden md:block max-w-1xl bg-white shadow-md rounded-lg">
                 <div class="p-3">
                     <div class="overflow-x-auto">
                         @if(count($albums) === 0)
@@ -109,7 +111,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            @if(count($album->files) == 0)
+                                            {{-- @if(count($album->files) == 0) --}}
 
                                             <button data-modal-target="popup-modal-trash-{{ $album->id }}" data-modal-toggle="popup-modal-trash-{{ $album->id }}" class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="button">
                                                 <i class="fa-solid fa-trash"></i> Elimina Album
@@ -140,11 +142,11 @@
                                                 </div>
                                             </div>
 
-                                            @else
+                                           {{--  @else
                                             <div class="text-center">
                                                 <p style="font-size: 10px">Elimina le foto <br> se vuoi eliminare l'album</p>
-                                            </div>
-                                            @endif
+                                            </div> --}}
+                                           {{--  @endif --}}
                                         </div>
                                     </td>
                                 </tr>
@@ -156,18 +158,8 @@
                 </div>
             </div>
 
-
-            {{-- search --}}
-            <form action="{{ route('admin.albums.index') }}" method="get" class="block md:hidden flex align-center mt-5 ml-5">
-                @csrf
-                <input style="--tw-ring-shadow: none" placeholder="cerca per nome" type="text" name="search" class="hover:bg-gray-200 focus:bg-gray-200 transition border-gray-200 focus:border-gray-200 rounded-lg">
-                <button class="bg-gray-400 hover:bg-gray-500 transition p-2 px-5 mx-2 text-white rounded-lg">Cerca</button>
-                <a class="bg-blue-400 hover:bg-blue-500 transition py-3 px-5 text-white rounded-lg" href="{{ route('admin.albums.index') }}">Reset</a>
-
-            </form>
-
             @foreach($albums as $album)
-            <div class="max-w-md m-5 bg-white block md:hidden rounded-xl shadow-md overflow-hidden md:max-w-xl">
+            <div class="max-w-md my-5 bg-white block md:hidden rounded-xl shadow-md overflow-hidden md:max-w-xl">
                 @if ($album->files->isNotEmpty())
                 <a href="{{  route('admin.files.albumPage', $album->id) }}" title="vai alla galleria">
                     <img class="object-cover w-full h-48" {{--  width="150" --}} src="{{ asset('storage/' . $album->files->first()->img_url) }}" alt="Cover Image">

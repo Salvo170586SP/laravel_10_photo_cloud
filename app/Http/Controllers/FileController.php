@@ -31,7 +31,15 @@ class FileController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'files.*' => 'mimes:jpeg,jpg'
+        ], [
+            'files.*.mimes' => 'Puoi caricare file solo jpg o jpeg'
+        ]);
+
         $albumId = $request->input('album_id');
+
+
 
         foreach ($request->file('files') as $uploadedFile) {
             $file = new File();
@@ -45,7 +53,7 @@ class FileController extends Controller
             $file->save();
         }
 
-        return back();
+        return back()->with('message', 'Immagini aggiunte con successo');
     }
 
     /**
@@ -53,8 +61,7 @@ class FileController extends Controller
      */
     public function show(File $file)
     {
-        /* dd($file); */
-        return back()->with( compact('file'));
+        return back()->with(compact('file'));
     }
 
     /**
@@ -83,7 +90,7 @@ class FileController extends Controller
         }
         $file->delete();
 
-        return back();
+        return back()->with('message', 'Immagine eliminata con successo');
     }
 
 
@@ -95,18 +102,17 @@ class FileController extends Controller
         return view('admin.files.albumPage', compact('files', 'album'));
     }
 
-    public function destroyAll()
+
+    public function destroyAll(Album $album)
     {
-        //seleziono la cartella storage in public
-        $files = DB::table('files')->get();
+        $files = $album->files;
 
         foreach ($files as $file) {
             Storage::delete($file->img_url);
+            $file->delete();
         }
 
-        DB::table('files')->delete();
-
-        return back();
+        return back()->with('message', 'Immagini eliminate con successo');
     }
 
     public function downloadFile(File $file)

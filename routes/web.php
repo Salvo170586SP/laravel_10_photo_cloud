@@ -48,6 +48,6 @@ Route::middleware('auth')->name('admin.')->group(function () {
     Route::get('/dashboard/files/album/{file}', [FileController::class, 'show'])->name('files.show');
     Route::put('/dashboard/files/{file}', [FileController::class, 'update'])->name('files.update');
     Route::delete('/dashboard/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
-    Route::post('/dashboard/files/destroyAll', [FileController::class, 'destroyAll'])->name('files.destroyAll');
+    Route::post('/dashboard/files/destroyAll/{album}', [FileController::class, 'destroyAll'])->name('files.destroyAll');
     Route::post('/dashboard/files/downloadFile/{file}', [FileController::class, 'downloadFile'])->name('files.downloadFile');
 });

@@ -6,8 +6,9 @@ use App\Models\Album;
 use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
 {
@@ -21,7 +22,7 @@ class AlbumController extends Controller
         $search = $request->input('search');
         //ricerca solo del titolo
         $albums = Album::where('user_id', Auth::id())->where('name_album', 'like', "%$search%")->get();
-        
+
         return view('admin.albums.index', compact('albums'));
     }
 
@@ -42,7 +43,7 @@ class AlbumController extends Controller
         $album->user_id = Auth::id();
         $album->save();
 
-        return back();
+        return back()->with('message', 'Album creato con successo');
     }
 
     /**
@@ -68,7 +69,7 @@ class AlbumController extends Controller
     {
         $album->update($request->all());
 
-        return back();
+        return back()->with('message', 'Album aggiornato con successo');
     }
 
     /**
@@ -76,8 +77,16 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
+        $files = File::where('album_id', $album->id)->get();
+
+        foreach ($files as $file) {
+            Storage::delete($file->img_url);
+            $file->delete();
+        }
+
+        /*   DB::table('files')->delete(); */
         $album->delete();
 
-        return back();
+        return back()->with('message', 'Album eliminato con successo');
     }
 }

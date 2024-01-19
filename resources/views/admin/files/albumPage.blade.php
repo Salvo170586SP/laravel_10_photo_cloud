@@ -8,25 +8,29 @@
             <a class="bg-blue-400 hover:bg-blue-500 transition p-2 px-5 mr-5 text-white rounded-lg" href="{{ route('admin.albums.index') }}">Torna gli album</a>
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
+            <div>
+                @include('admin.partials.messages')
+            </div>
             {{-- create --}}
+            @include('admin.partials.errors')
             <form action="{{ route('admin.files.store') }}" method="post" class="flex items-center" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="album_id" value="{{ $album->id }}">
-                <label for="file-input" class="flex items-center p-2 text-white bg-blue-500 rounded cursor-pointer my-5" style="width: 150px">
+                <label for="url_file"   class="flex items-center p-2 text-white bg-blue-500 rounded cursor-pointer my-5" style="width: 150px">
                     <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
                     Sfoglia file
                 </label>
-                <input id="file-input" type="file" class="hidden" name="files[]" multiple required>
-                <button class="bg-gray-400 hover:bg-gray-500 transition p-2 px-5 text-white rounded ms-2">Aggiungi foto</button>
+                <input id="url_file" type="file" class="hidden" name="files[]" multiple required>
+                <button id="button2" style="display: none"  class="bg-gray-400  hover:bg-gray-500 transition p-2 px-5 text-white rounded ms-2">Aggiungi foto</button>
             </form>
 
             <!-- Table -->
             <div class="bg-white  shadow-md rounded-xl">
                 <header class="px-5 py-4   flex justify-between items-center">
                     <h2 class="font-semibold text-gray-800"> </h2>
-                    @if(count($album->files) > 0)
+                    @if(count($album->files) > 1)
                     <button data-modal-target="popup-modal-delete-all" data-modal-toggle="popup-modal-delete-all" class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="button">
                         Elimina tutti
                     </button>
@@ -42,7 +46,7 @@
                                 <div class="p-6 text-center">
                                     <h3 class="mb-5 text-lg font-normal text-gray-500">Vuoi eliminare tutte le foto in questo album?</h3>
                                     <div class="flex items-center justify-between">
-                                        <form action="{{ route('admin.files.destroyAll') }}" method="post">
+                                        <form action="{{ route('admin.files.destroyAll', $album->id) }}" method="post">
                                             @csrf
                                             <button class="bg-red-400 hover:bg-red-500 transition p-2 px-5 text-white rounded-lg">Elimina tutti</button>
                                         </form>
@@ -130,3 +134,15 @@
     </div>
 
 </x-app-layout>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlFile = document.getElementById('url_file');
+        urlFile.addEventListener('input', function(e) {
+            const button = document.getElementById('button2');
+            const file = urlFile.value;
+            console.log(file);
+            trueDis = urlFile.disabled = false;
+            button.style.display = file !== '' ? 'block' : 'none';
+        });
+    })
+</script>
