@@ -14,7 +14,7 @@
         <!-- Scripts -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
-
+        <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
@@ -36,6 +36,7 @@
             </main>
         </div>
 
-        
+        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+
     </body>
 </html>

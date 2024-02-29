@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\DropzoneController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Album;
@@ -50,4 +51,6 @@ Route::middleware('auth')->name('admin.')->group(function () {
     Route::delete('/dashboard/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
     Route::post('/dashboard/files/destroyAll/{album}', [FileController::class, 'destroyAll'])->name('files.destroyAll');
     Route::post('/dashboard/files/downloadFile/{file}', [FileController::class, 'downloadFile'])->name('files.downloadFile');
+  
+    Route::post('/dashboard/files/upload', [DropzoneController::class, 'store'])->name('dropzone.store');
 });
