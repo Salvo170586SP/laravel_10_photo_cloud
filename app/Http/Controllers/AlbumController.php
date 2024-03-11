@@ -7,7 +7,6 @@ use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
@@ -27,13 +26,6 @@ class AlbumController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -44,22 +36,6 @@ class AlbumController extends Controller
         $album->save();
 
         return back()->with('message', 'Album creato con successo');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Album $album)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Album $album)
-    {
-        //
     }
 
     /**
