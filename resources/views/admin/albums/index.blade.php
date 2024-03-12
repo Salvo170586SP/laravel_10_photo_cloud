@@ -2,7 +2,7 @@
     <div class="py-3">
         <div class="max-w-7xl mx-auto    px-5 lg:px-8 flex flex-col">
             {{-- create --}}
-            <form action="{{ route('admin.albums.store') }}" method="post" class=" mb-5 ">
+            <form action="{{ route('admin.albums.store') }}" method="post" class="w-full text-center mb-5 ">
                 @csrf
                 <input style="--tw-ring-shadow: none" required placeholder="nome album" type="text" name="name_album"
                     class="hover:bg-gray-200 focus:bg-gray-200 transition border-gray-200 focus:border-gray-200 rounded-lg">
@@ -13,8 +13,8 @@
                 @include('admin.partials.messages')
             </div>
             @if(count($albums) === 0)
-            <div class=" w-18 text-slate-600">
-                <h2 class="text-lg font-bold">CREA IL TUO PRIMO ALBUM</h2>
+            <div class="w-full text-center text-slate-400">
+                <h2 class="text-3xl font-bold"><i class="fa-solid fa-images mr-2"></i> CREA IL TUO PRIMO ALBUM</h2>
             </div>
             @endif
 

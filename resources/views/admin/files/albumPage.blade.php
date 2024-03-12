@@ -1,20 +1,20 @@
 <x-app-layout>
-    <div class="py-12" style="animation: rotate-fade 0.5s ease-in-out;">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-5 flex justify-between items-center">
+    <div class="py-12 px-5" style="animation: rotate-fade 0.5s ease-in-out;">
+        <div class="max-w-7xl mx-auto mb-5 flex justify-between items-center ">
             <div>
-                <h1 class="text-4xl  ">Galleria {{ $album->name_album }} </h1>
+                <h1 class="text-4xl  ">Album {{ $album->name_album }} </h1>
                 <small class="bg-gray-600 text-white rounded px-3 py-1">{{count($files)}} FOTO</small>
             </div>
-            <a class="bg-blue-400 hover:bg-blue-500 transition p-2 px-5 mr-5 text-white rounded-lg"
+            <a class="bg-blue-400 hover:bg-blue-500 transition p-2 px-5 text-white rounded-lg"
                 href="{{ route('admin.albums.index') }}">Torna gli album</a>
         </div>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col">
-            <div>
+        <div class="max-w-7xl mx-auto flex flex-col">
+            <div class="">
                 @include('admin.partials.messages')
             </div>
             {{-- create --}}
             @include('admin.partials.errors')
-            <form action="{{ route('admin.files.store') }}" method="post" class="flex items-center"
+            <form action="{{ route('admin.files.store') }}" method="post" class="flex items-center "
                 enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="album_id" value="{{ $album->id }}">
@@ -147,7 +147,7 @@
 
                                 {{-- SHOW --}}
                                 <div id="popup-modal-show-{{ $file->id }}" tabindex="-1"
-                                    class="fixed p-5 top-0 left-0 right-0 z-50 hidden bg-opacity-50  overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    class="fixed p-5 top-0 left-0 right-0 z-50 hidden bg-opacity-50 mx-5  overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                     <div class="relative">
                                         <div class="relative bg-white rounded-lg shadow">
                                             <button type="button"
@@ -182,7 +182,6 @@
             </div>
         </div>
     </div>
-
 </x-app-layout>
 
 <script>
