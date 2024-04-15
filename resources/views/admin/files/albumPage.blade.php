@@ -42,7 +42,7 @@
 
             <!-- Table -->
             <div class="bg-white  shadow-md rounded-xl">
-                <header class="px-5 py-4   flex justify-between items-center">
+                <div class="px-5 py-4 w-full   flex justify-between items-center">
                     <h2 class="font-semibold text-gray-800"> </h2>
                     @if(count($album->files) > 1)
                     <button data-modal-target="popup-modal-delete-all" data-modal-toggle="popup-modal-delete-all"
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     @endif
-                </header>
+                </div>
                 <div class="p-5">
                     <div class="overflow-x-auto">
                         <div class="flex flex-wrap justify-center md:justify-start">
@@ -91,11 +91,11 @@
                             @else
                             @foreach($files as $file)
                             <div class="relative group">
-                                <div class="  cursor-pointer " data-modal-target="popup-modal-show-{{ $file->id }}"
+                                <div class="w-full  cursor-pointer " data-modal-target="popup-modal-show-{{ $file->id }}"
                                     data-modal-toggle="popup-modal-show-{{ $file->id }}">
-                                    <figure class="  transition overflow-hidden">
-                                        <img style="width: 180px; height:180px; object-fit: cover; object-position: center"
-                                            class=" rounded-2xl border m-1  transition-transform group-hover:scale-95"
+                                    <figure class="w-full  transition overflow-hidden">
+                                        <img 
+                                            class="w-full md:w-[180px]  md:h-[180px] object-cover object-center rounded-2xl border m-1  transition-transform group-hover:scale-95"
                                             src="{{ asset('storage/'. $file->img_url) }}" alt="{{ $file->name }}">
                                     </figure>
                                 </div>
